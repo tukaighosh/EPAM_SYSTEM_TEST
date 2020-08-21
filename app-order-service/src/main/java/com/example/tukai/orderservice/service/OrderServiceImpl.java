@@ -10,6 +10,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.example.tukai.orderservice.dao.OrderRepository;
 import com.example.tukai.orderservice.domain.Order;
+import com.example.tukai.orderservice.exception.OrderNotFoundException;
 import com.example.tukai.orderservice.proxy.OrderItemServiceProxy;
 import com.example.tukai.orderservice.vo.OrderItemVO;
 import com.example.tukai.orderservice.vo.OrderRequest;
@@ -40,6 +41,9 @@ public class OrderServiceImpl implements OrderService{
 				orderVOs.add(orderVO);
 			});
 		}
+		else {
+			throw new OrderNotFoundException("ORDER_NOT_FOUND","Order Not Found for Customer "+customerName);
+		}
 		return orderVOs;
 	}
 
@@ -54,6 +58,9 @@ public class OrderServiceImpl implements OrderService{
 			orderVO.setTotal(order.getTotal());
 			List<OrderItemVO> orderItems = orderItemServiceProxy.getOrderItems(order.getId());
 			orderVO.setOrderItems(orderItems);
+		}
+		else {
+			throw new OrderNotFoundException("ORDER_NOT_FOUND","Order Not Found for order id "+orderId);
 		}
 		return orderVO;
 	}
