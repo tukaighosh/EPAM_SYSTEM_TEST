@@ -11,7 +11,7 @@ public interface OrderItemService {
 
 	public OrderItem getOrderItemByProductCode(String productCode);
 	
-	public OrderItem saveOrderItem(OrderItem orderItem);
+	public Long saveOrderItem(OrderItem orderItem);
 	
 	public List<OrderItem> getOrderItemByOrderId(Long orderId);
 }

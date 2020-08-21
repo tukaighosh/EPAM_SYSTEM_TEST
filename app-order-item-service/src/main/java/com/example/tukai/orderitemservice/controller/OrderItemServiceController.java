@@ -36,7 +36,7 @@ public class OrderItemServiceController {
 
 	@ApiOperation(value = "Save Order Item")
 	@PostMapping(value = "/addOrderItem", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public OrderItem addOrderItem(@RequestBody OrderItem orderItem) {
+	public Long addOrderItem(@RequestBody OrderItem orderItem) {
 		return orderItemService.saveOrderItem(orderItem);
 	}
 

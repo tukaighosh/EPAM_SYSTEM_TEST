@@ -11,8 +11,9 @@ import org.springframework.util.CollectionUtils;
 import com.example.tukai.orderservice.dao.OrderRepository;
 import com.example.tukai.orderservice.domain.Order;
 import com.example.tukai.orderservice.proxy.OrderItemServiceProxy;
-import com.example.tukai.orderservice.vo.OrderVO;
-import com.example.tukai.orderservice.vo.OrderVO.OrderItem;
+import com.example.tukai.orderservice.vo.OrderItemVO;
+import com.example.tukai.orderservice.vo.OrderRequest;
+import com.example.tukai.orderservice.vo.OrderResponse;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -24,17 +25,17 @@ public class OrderServiceImpl implements OrderService{
 	OrderRepository orderRepo;
 	
 	@Override
-	public List<OrderVO> getOrdersByCustomerName(String customerName) {
-		List<OrderVO> orderVOs = new ArrayList<>();
+	public List<OrderResponse> getOrdersByCustomerName(String customerName) {
+		List<OrderResponse> orderVOs = new ArrayList<>();
 		List<Order> orders = orderRepo.findByCustomerName(customerName);
 		if(!CollectionUtils.isEmpty(orders)) {
 			orders.stream().forEach(order -> {
-				OrderVO orderVO = new OrderVO();
+				OrderResponse orderVO = new OrderResponse();
 				orderVO.setCustomerName(order.getCustomerName());
 				orderVO.setOrderDate(order.getOrderDate());
 				orderVO.setShippingAdrress(order.getShippingAdrress());
 				orderVO.setTotal(order.getTotal());
-				List<OrderItem> orderItems = orderItemServiceProxy.getOrderItems(order.getId());
+				List<OrderItemVO> orderItems = orderItemServiceProxy.getOrderItems(order.getId());
 				orderVO.setOrderItems(orderItems);
 				orderVOs.add(orderVO);
 			});
@@ -43,22 +44,22 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public OrderVO getOrderByOrderId(Long orderId) {
-		OrderVO orderVO = new OrderVO();
+	public OrderResponse getOrderByOrderId(Long orderId) {
+		OrderResponse orderVO = new OrderResponse();
 		Order order = orderRepo.findOne(orderId);
 		if (order != null) {
 			orderVO.setCustomerName(order.getCustomerName());
 			orderVO.setOrderDate(order.getOrderDate());
 			orderVO.setShippingAdrress(order.getShippingAdrress());
 			orderVO.setTotal(order.getTotal());
-			List<OrderItem> orderItems = orderItemServiceProxy.getOrderItems(order.getId());
+			List<OrderItemVO> orderItems = orderItemServiceProxy.getOrderItems(order.getId());
 			orderVO.setOrderItems(orderItems);
 		}
 		return orderVO;
 	}
 
 	@Override
-	public OrderVO saveOrder(OrderVO orderVO) {
+	public Long saveOrder(OrderRequest orderVO) {
 		Order order = new Order();
 		order.setCustomerName(orderVO.getCustomerName());
 		order.setOrderDate(new Date());
@@ -67,11 +68,15 @@ public class OrderServiceImpl implements OrderService{
 		Order savedOrder = orderRepo.save(order);
 		if(!CollectionUtils.isEmpty(orderVO.getOrderItems())) {
 			orderVO.getOrderItems().stream().forEach(orderItem -> {
-				orderItem.setOrderId(savedOrder.getId());
-				orderItemServiceProxy.addOrderItem(orderItem);
+				OrderItemVO orderItemVO = new OrderItemVO();
+				orderItemVO.setOrderId(savedOrder.getId());
+				orderItemVO.setProductCode(orderItem.getProductCode());
+				orderItemVO.setProductName(orderItem.getProductName());
+				orderItemVO.setQuantity(orderItem.getQuantity());
+				orderItemServiceProxy.addOrderItem(orderItemVO);
 			});
 		}
-		return orderVO;
+		return savedOrder.getId();
 	}
 
 }

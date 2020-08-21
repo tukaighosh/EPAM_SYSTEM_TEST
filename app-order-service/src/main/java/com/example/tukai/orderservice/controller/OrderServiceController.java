@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.tukai.orderservice.service.OrderService;
-import com.example.tukai.orderservice.vo.OrderVO;
+import com.example.tukai.orderservice.vo.OrderRequest;
+import com.example.tukai.orderservice.vo.OrderResponse;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -25,18 +26,18 @@ public class OrderServiceController {
 
 	@ApiOperation(value = "Get Orders By Customer Name")
 	@GetMapping(value = "/getOrdersByCustomerName/{customerName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<OrderVO> getOrdersByCustomerName(@PathVariable String customerName) {
+	public List<OrderResponse> getOrdersByCustomerName(@PathVariable String customerName) {
 		return orderService.getOrdersByCustomerName(customerName);
 	}
 	
 	@ApiOperation(value = "Get Orders By Order Id")
 	@GetMapping(value = "/getOrderByOrderId/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OrderVO getOrderByOrderId(@PathVariable Long orderId) {
+	public OrderResponse getOrderByOrderId(@PathVariable Long orderId) {
 		return orderService.getOrderByOrderId(orderId);
 	}
 	
 	@PostMapping(value = "/saveOrder", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OrderVO getOrderByOrderId(@RequestBody OrderVO orderVO) {
+	public Long getOrderByOrderId(@RequestBody OrderRequest orderVO) {
 		return orderService.saveOrder(orderVO);
 	}
 }

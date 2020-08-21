@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "ORDER_ITEM")
+@Table(name = "ORDER_ITEM_DETAIL")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderItem implements Serializable{
 	private static final long serialVersionUID = 1L;
