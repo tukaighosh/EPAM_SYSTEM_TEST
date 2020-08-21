@@ -1,15 +1,14 @@
-package com.example.springbootzuulgatwayproxy.filters;
+package com.example.tukai.gateway.filter;
 
 import com.netflix.zuul.ZuulFilter;
 
 import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
-public class PostFilter extends ZuulFilter {
+public class RouteFilter extends ZuulFilter {
 
   @Override
   public String filterType() {
-    return "post";
+    return "route";
   }
 
   @Override
@@ -24,7 +23,7 @@ public class PostFilter extends ZuulFilter {
 
   @Override
   public Object run() {
-   log.info("Inside Response Filter");
+   log.info("Inside Route Filter");
 
     return null;
   }

@@ -1,4 +1,4 @@
-package com.example.springbootzuulgatwayproxy.filters;
+package com.example.tukai.gateway.filter;
 
 import javax.servlet.http.HttpServletRequest;
 

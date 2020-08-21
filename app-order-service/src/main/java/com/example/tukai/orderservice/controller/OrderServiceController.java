@@ -2,6 +2,8 @@ package com.example.tukai.orderservice.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,7 @@ public class OrderServiceController {
 	}
 	
 	@PostMapping(value = "/saveOrder", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Long getOrderByOrderId(@RequestBody OrderRequest orderVO) {
+	public Long getOrderByOrderId(@Valid @RequestBody OrderRequest orderVO) {
 		return orderService.saveOrder(orderVO);
 	}
 }

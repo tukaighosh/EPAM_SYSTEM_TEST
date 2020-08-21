@@ -1,4 +1,4 @@
-package com.example.springbootzuulgatwayproxy;
+package com.example.tukai.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,18 +6,18 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
-import com.example.springbootzuulgatwayproxy.filters.ErrorFilter;
-import com.example.springbootzuulgatwayproxy.filters.PostFilter;
-import com.example.springbootzuulgatwayproxy.filters.PreFilter;
-import com.example.springbootzuulgatwayproxy.filters.RouteFilter;
+import com.example.tukai.gateway.filter.ErrorFilter;
+import com.example.tukai.gateway.filter.PostFilter;
+import com.example.tukai.gateway.filter.PreFilter;
+import com.example.tukai.gateway.filter.RouteFilter;
 
 @SpringBootApplication
 @EnableZuulProxy
 @EnableDiscoveryClient
-public class SpringBootZuulgatwayproxyApplication {
+public class SpringGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootZuulgatwayproxyApplication.class, args);
+		SpringApplication.run(SpringGatewayApplication.class, args);
 	}
 
 	@Bean

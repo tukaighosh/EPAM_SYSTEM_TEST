@@ -3,6 +3,8 @@ package com.example.tukai.orderservice.vo;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
@@ -14,7 +16,9 @@ import lombok.Setter;
 public class OrderRequest implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	@NotNull(message = "Customer name must not be null")
 	private String customerName;
+	@NotNull(message = "Shipping address must not be null")
 	private String shippingAdrress;
 	private List<OrderItem> orderItems;
 	private Double total;
