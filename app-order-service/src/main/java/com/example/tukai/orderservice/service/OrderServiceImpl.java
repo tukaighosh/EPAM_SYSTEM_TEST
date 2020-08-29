@@ -70,7 +70,7 @@ public class OrderServiceImpl implements OrderService{
 		Order order = new Order();
 		order.setCustomerName(orderVO.getCustomerName());
 		order.setOrderDate(new Date());
-		order.setShippingAdrress(order.getShippingAdrress());
+		order.setShippingAdrress(orderVO.getShippingAdrress());
 		order.setTotal(orderVO.getTotal());
 		Order savedOrder = orderRepo.save(order);
 		if(!CollectionUtils.isEmpty(orderVO.getOrderItems())) {
