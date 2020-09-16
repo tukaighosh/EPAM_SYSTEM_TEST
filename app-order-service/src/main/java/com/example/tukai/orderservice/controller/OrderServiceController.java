@@ -27,19 +27,19 @@ public class OrderServiceController {
 	OrderService orderService;
 
 	@ApiOperation(value = "Get Orders By Customer Name")
-	@GetMapping(value = "/getOrdersByCustomerName/{customerName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/orders/customerName/{customerName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<OrderResponse> getOrdersByCustomerName(@PathVariable String customerName) {
 		return orderService.getOrdersByCustomerName(customerName);
 	}
 	
 	@ApiOperation(value = "Get Orders By Order Id")
-	@GetMapping(value = "/getOrderByOrderId/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/order/id/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public OrderResponse getOrderByOrderId(@PathVariable Long orderId) {
 		return orderService.getOrderByOrderId(orderId);
 	}
 	
-	@PostMapping(value = "/saveOrder", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Long getOrderByOrderId(@Valid @RequestBody OrderRequest orderVO) {
+	@PostMapping(value = "/order/save", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Long saveOrder(@Valid @RequestBody OrderRequest orderVO) {
 		return orderService.saveOrder(orderVO);
 	}
 }

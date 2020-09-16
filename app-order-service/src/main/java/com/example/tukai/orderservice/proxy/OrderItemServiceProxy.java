@@ -15,9 +15,9 @@ import com.example.tukai.orderservice.vo.OrderItemVO;
 @FeignClient(name = "infra-gateway")
 public interface OrderItemServiceProxy {
 
-	@GetMapping(value = "/app-order-item-service/order-item/service/getOrderItemByOrderId/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/app-order-item-service/order-item/service/order-item/orderId/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<OrderItemVO> getOrderItems(@PathVariable("orderId") Long orderId);
 
-	@PostMapping(value = "/app-order-item-service/order-item/service/addOrderItem", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/app-order-item-service/order-item/service/order-item/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Long addOrderItem(@RequestBody OrderItemVO orderItem);
 }

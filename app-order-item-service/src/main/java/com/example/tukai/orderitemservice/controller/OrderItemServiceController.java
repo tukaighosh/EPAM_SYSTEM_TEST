@@ -23,19 +23,19 @@ public class OrderItemServiceController {
 	OrderItemService orderItemService;
 
 	@ApiOperation(value = "Get Order Item by product code")
-	@GetMapping(value = "/getOrderItemByProductCode/{productCode}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/order-item/productCode/{productCode}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public OrderItem getOrderItemByProductCode(@PathVariable String productCode) {
 		return orderItemService.getOrderItemByProductCode(productCode);
 	}
 	
 	@ApiOperation(value = "Get Order Item by order id")
-	@GetMapping(value = "/getOrderItemByOrderId/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/order-item/orderId/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<OrderItem> getOrderItemByOrderId(@PathVariable Long orderId) {
 		return orderItemService.getOrderItemByOrderId(orderId);
 	}
 
 	@ApiOperation(value = "Save Order Item")
-	@PostMapping(value = "/addOrderItem", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/order-item/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Long addOrderItem(@RequestBody OrderItem orderItem) {
 		return orderItemService.saveOrderItem(orderItem);
 	}
