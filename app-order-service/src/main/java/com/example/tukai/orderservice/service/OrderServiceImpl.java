@@ -36,7 +36,7 @@ public class OrderServiceImpl implements OrderService{
 				orderVO.setOrderDate(order.getOrderDate());
 				orderVO.setShippingAdrress(order.getShippingAdrress());
 				orderVO.setTotal(order.getTotal());
-				List<OrderItemVO> orderItems = orderItemServiceProxy.getOrderItems(order.getId());
+				List<OrderItemVO> orderItems = orderItemServiceProxy.getOrderItemByOrderId(order.getId());
 				orderVO.setOrderItems(orderItems);
 				orderVOs.add(orderVO);
 			});
@@ -56,7 +56,7 @@ public class OrderServiceImpl implements OrderService{
 			orderVO.setOrderDate(order.getOrderDate());
 			orderVO.setShippingAdrress(order.getShippingAdrress());
 			orderVO.setTotal(order.getTotal());
-			List<OrderItemVO> orderItems = orderItemServiceProxy.getOrderItems(order.getId());
+			List<OrderItemVO> orderItems = orderItemServiceProxy.getOrderItemByOrderId(order.getId());
 			orderVO.setOrderItems(orderItems);
 		}
 		else {
@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService{
 	public Long saveOrder(OrderRequest orderVO) {
 		Order order = new Order();
 		order.setCustomerName(orderVO.getCustomerName());
-		order.setOrderDate(new Date());
+		order.setOrderDate(orderVO.getOrderDate() != null ? orderVO.getOrderDate() : new Date());
 		order.setShippingAdrress(orderVO.getShippingAdrress());
 		order.setTotal(orderVO.getTotal());
 		Order savedOrder = orderRepo.save(order);
@@ -80,7 +80,7 @@ public class OrderServiceImpl implements OrderService{
 				orderItemVO.setProductCode(orderItem.getProductCode());
 				orderItemVO.setProductName(orderItem.getProductName());
 				orderItemVO.setQuantity(orderItem.getQuantity());
-				orderItemServiceProxy.addOrderItem(orderItemVO);
+				orderItemServiceProxy.saveOrderItem(orderItemVO);
 			});
 		}
 		return savedOrder.getId();

@@ -1,6 +1,7 @@
 package com.example.tukai.orderservice.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public class OrderRequest implements Serializable{
 	private String shippingAdrress;
 	private List<OrderItem> orderItems;
 	private Double total;
+	private Date orderDate;
 	
 	@Getter
 	@Setter

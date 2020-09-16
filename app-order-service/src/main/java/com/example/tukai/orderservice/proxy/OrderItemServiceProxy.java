@@ -16,8 +16,8 @@ import com.example.tukai.orderservice.vo.OrderItemVO;
 public interface OrderItemServiceProxy {
 
 	@GetMapping(value = "/app-order-item-service/order-item/service/order-item/orderId/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<OrderItemVO> getOrderItems(@PathVariable("orderId") Long orderId);
+	public List<OrderItemVO> getOrderItemByOrderId(@PathVariable("orderId") Long orderId);
 
 	@PostMapping(value = "/app-order-item-service/order-item/service/order-item/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Long addOrderItem(@RequestBody OrderItemVO orderItem);
+	public Long saveOrderItem(@RequestBody OrderItemVO orderItem);
 }
