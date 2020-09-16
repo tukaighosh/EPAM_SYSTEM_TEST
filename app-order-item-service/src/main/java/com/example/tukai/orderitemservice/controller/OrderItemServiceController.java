@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.tukai.orderitemservice.domain.OrderItem;
 import com.example.tukai.orderitemservice.service.OrderItemService;
+import com.example.tukai.orderitemservice.vo.OrderItemVO;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -24,13 +25,13 @@ public class OrderItemServiceController {
 
 	@ApiOperation(value = "Get Order Item by product code")
 	@GetMapping(value = "/order-item/productCode/{productCode}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OrderItem getOrderItemByProductCode(@PathVariable String productCode) {
+	public OrderItemVO getOrderItemByProductCode(@PathVariable String productCode) {
 		return orderItemService.getOrderItemByProductCode(productCode);
 	}
 	
 	@ApiOperation(value = "Get Order Item by order id")
 	@GetMapping(value = "/order-item/orderId/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<OrderItem> getOrderItemByOrderId(@PathVariable Long orderId) {
+	public List<OrderItemVO> getOrderItemByOrderId(@PathVariable Long orderId) {
 		return orderItemService.getOrderItemByOrderId(orderId);
 	}
 
