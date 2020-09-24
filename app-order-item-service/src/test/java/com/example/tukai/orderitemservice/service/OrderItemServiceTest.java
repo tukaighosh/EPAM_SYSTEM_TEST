@@ -17,6 +17,7 @@ import com.example.tukai.orderitemservice.dao.OrderItemRepository;
 import com.example.tukai.orderitemservice.domain.OrderItem;
 import com.example.tukai.orderitemservice.service.OrderItemService;
 import com.example.tukai.orderitemservice.service.OrderItemServiceImpl;
+import com.example.tukai.orderitemservice.vo.OrderItemVO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OrderItemServiceImpl.class)
@@ -44,7 +45,7 @@ public class OrderItemServiceTest {
 		orderItems.add(orderItem);
 		Mockito.when(orderItemRepository.findByOrderId(Mockito.anyLong()))
 				.thenReturn(orderItems);
-		List<OrderItem> responseList = orderItemService.getOrderItemByOrderId(1L);
+		List<OrderItemVO> responseList = orderItemService.getOrderItemByOrderId(1L);
 		assertThat(responseList).isNotNull();
 		assertThat(responseList).isNotEmpty();
 	}
@@ -54,7 +55,7 @@ public class OrderItemServiceTest {
 		OrderItem orderItem = buildOrderItem();
 		Mockito.when(orderItemRepository.findByProductCode(Mockito.anyString()))
 				.thenReturn(orderItem);
-		OrderItem response = orderItemService.getOrderItemByProductCode("P-1");
+		OrderItemVO response = orderItemService.getOrderItemByProductCode("P-1");
 		assertThat(response).isNotNull();
 	}
 	

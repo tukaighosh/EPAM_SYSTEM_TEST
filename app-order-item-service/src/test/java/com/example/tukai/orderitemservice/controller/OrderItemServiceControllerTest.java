@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.example.tukai.orderitemservice.controller.OrderItemServiceController;
 import com.example.tukai.orderitemservice.domain.OrderItem;
 import com.example.tukai.orderitemservice.service.OrderItemService;
+import com.example.tukai.orderitemservice.vo.OrderItemVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
@@ -32,7 +33,7 @@ public class OrderItemServiceControllerTest {
 	@Test
 	public void addOrderItemTest() throws Exception {
 		Mockito.when(orderItemService.saveOrderItem(Mockito.any(OrderItem.class))).thenReturn(1L);
-		OrderItem orderItem = buildOrderItem();
+		OrderItemVO orderItem = buildOrderItem();
 		mvc.perform(MockMvcRequestBuilders.post("/order-item/service/addOrderItem")
 				.content(new ObjectMapper().writeValueAsString(orderItem)).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
@@ -40,8 +41,8 @@ public class OrderItemServiceControllerTest {
 
 	@Test
 	public void getOrderItemByOrderIdTest() throws Exception {
-		List<OrderItem> orderItems = new ArrayList<OrderItem>();
-		OrderItem orderItem = buildOrderItem();
+		List<OrderItemVO> orderItems = new ArrayList<OrderItemVO>();
+		OrderItemVO orderItem = buildOrderItem();
 		orderItems.add(orderItem);
 		Mockito.when(orderItemService.getOrderItemByOrderId(Mockito.anyLong())).thenReturn(orderItems);
 		mvc.perform(MockMvcRequestBuilders.get("/order-item/service/getOrderItemByOrderId/{orderId}", 1L)
@@ -50,15 +51,14 @@ public class OrderItemServiceControllerTest {
 
 	@Test
 	public void getOrderItemByProductCodeTest() throws Exception {
-		OrderItem orderItem = buildOrderItem();
+		OrderItemVO orderItem = buildOrderItem();
 		Mockito.when(orderItemService.getOrderItemByProductCode(Mockito.anyString())).thenReturn(orderItem);
 		mvc.perform(MockMvcRequestBuilders.get("/order-item/service/getOrderItemByProductCode/{productCode}", "P-1")
 				.accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
-	private OrderItem buildOrderItem() {
-		OrderItem orderItem = new OrderItem();
-		orderItem.setId(1L);
+	private OrderItemVO buildOrderItem() {
+		OrderItemVO orderItem = new OrderItemVO();
 		orderItem.setOrderId(1L);
 		orderItem.setProductCode("P-1");
 		orderItem.setProductName("Product 1");
